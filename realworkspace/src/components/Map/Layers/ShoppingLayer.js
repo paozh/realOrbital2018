@@ -8,7 +8,6 @@ class ShoppingLayer extends Component {
   };
 
   static propTypes = {
-    source: PropTypes.string,
     style: PropTypes.string,
     client: PropTypes.object,
     hidden: PropTypes.bool
@@ -16,9 +15,9 @@ class ShoppingLayer extends Component {
 
   constructor(props) {
     super(props);
-    
+
      // Change the source, to a customised one
-    const { hidden, source, style } = props;
+    const { hidden, style } = props;
 
     const cartoSource = new carto.source.SQL(source);
     const cartoStyle = new carto.style.CartoCSS(style);

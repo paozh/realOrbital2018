@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import carto from '@carto/carto.js';
 
 class HawkerLayer extends Component {
+
+  state = {
+    position: [1.2462530584216953,103.17157000878907]
+  }
+
+  /* 
+   * Some type-checking, using PropTypes modules 
+   */
   static contextTypes = {
     map: PropTypes.object,
   };
 
   static propTypes = {
-    source: PropTypes.string,
+    handleMarker: PropTypes.func,
     style: PropTypes.string,
     client: PropTypes.object,
     hidden: PropTypes.bool
@@ -17,36 +25,55 @@ class HawkerLayer extends Component {
   constructor(props) {
     super(props);
 
-    // Change the source, to a customised one
-    const { hidden, source, style } = props;
+    // Changed the source, to a customised one
+    // Necessary lines to initialise a Carto.Layer object, using the client
+    const { hidden, style } = props;
+    const SQLsource = `SELECT * FROM hawker_centres`; 
 
-    const cartoSource = new carto.source.SQL(source);
+    const cartoSource = new carto.source.SQL(SQLsource);
     const cartoStyle = new carto.style.CartoCSS(style);
 
-    this.layer = new carto.layer.Layer(cartoSource, cartoStyle);
+    this.layer = new carto.layer.Layer(cartoSource, cartoStyle, {
+        featureOverColumns: ['name', 'latitude', 'longitude']
+    });
     this.setVisibility(hidden)
   }
+
+  openPopup = (featureEvent) => {
+    this.props.handleMarker([parseFloat(featureEvent.data.latitude),
+        parseFloat(featureEvent.data.longitude)],
+        featureEvent.data.name);
+  }
+
 
   componentDidMount() {
     const { client } = this.props;
     client.addLayer(this.layer);
     client.getLeafletLayer().addTo(this.context.map);
+
+    // Add carto hoverOver & hoverOut functions as second argument
+    this.layer.on('featureOver', this.openPopup);
+    //this.layer.on('featureOut', this.closePopup); 
   }
 
+  // Component updates if the props.style or props.hidden are different
   shouldComponentUpdate(nextProps) {
-    return nextProps.style !== this.props.style || nextProps.hidden !== this.props.hidden;
+    return true;
+    //return nextProps.style !== this.props.style;
   }
 
+  // Sets the visibility of the layers 
   setVisibility = isHidden => {
     isHidden ? this.layer.hide() : this.layer.show();
   }
 
+
+
   render() {
-    const { hidden, style } = this.props;
+    const { handleMarker, hidden, style } = this.props;
     const layerStyle = this.layer.getStyle();
 
     layerStyle.setContent(style).then(() => this.setVisibility(hidden));
-
     return null;
   }
 }

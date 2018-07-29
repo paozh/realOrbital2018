@@ -8,7 +8,6 @@ class SchoolLayer extends Component {
   };
 
   static propTypes = {
-    source: PropTypes.string,
     style: PropTypes.string,
     client: PropTypes.object,
     hidden: PropTypes.bool
@@ -18,9 +17,10 @@ class SchoolLayer extends Component {
     super(props);
 
     // Change the source, to a customised one
-    const { hidden, source, style } = props;
+    const { hidden, style } = props;
+    const SQLsource = `SELECT * FROM school_data`;
 
-    const cartoSource = new carto.source.SQL(source);
+    const cartoSource = new carto.source.SQL(SQLsource);
     const cartoStyle = new carto.style.CartoCSS(style);
 
     this.layer = new carto.layer.Layer(cartoSource, cartoStyle);

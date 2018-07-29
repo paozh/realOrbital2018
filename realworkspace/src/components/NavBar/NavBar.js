@@ -41,9 +41,6 @@ export default class NavBar extends React.Component {
               <NavItem>
                 <Button color="primary" onClick={this.props.onClick}> Reset </Button>
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Options

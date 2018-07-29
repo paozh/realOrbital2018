@@ -9,7 +9,12 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shouldReset: false
+      shouldReset: false,
+      busHidden: false,
+      btoHidden: false,
+      schoolHidden: false,
+      hawkerHidden: false,
+      shoppingHidden: false
     };
   }
 
@@ -27,6 +32,14 @@ export default class App extends Component {
     })
   }
 
+  // Not needed, not working 
+  // toggleHawkerHidden = () => {
+  //   this.setState({
+  //     hawkerHidden: !this.state.hawkerHidden 
+  //   });
+  //   console.log(this.state.hawkerHidden);
+	// }
+
   render() {
     return (
       <div className="App">
@@ -35,10 +48,10 @@ export default class App extends Component {
         </div>
 
         <div className="content-r"> 
-            {/* <NavCol>
-              <CheckBoxes/>
-              </NavCol> */}
-            <Map shouldReset={this.state.shouldReset} resetClosure={() => this.resetClosure}/>
+            <Map shouldReset={this.state.shouldReset} 
+                 resetClosure={() => this.resetClosure}
+                 toggleHawkerHidden={this.state.hawkerHidden}
+                 />
         </div>
       </div>
     );

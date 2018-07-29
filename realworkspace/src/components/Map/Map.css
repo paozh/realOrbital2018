@@ -5,3 +5,75 @@
     width: 3000px;
     float: right;
 }
+
+#legend {
+    height: 5%;
+    width: 10%;
+    color: black;
+    background-color: white;
+    position: absolute;
+    height: 50px;
+    width: 435px;
+    top: 625px;
+    left: 1156px;
+    z-index: 1000;
+    margin: 10px;
+}
+
+
+/* compact similar code  */
+
+.schools {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 7px;
+    z-index: 1001;
+    background-color: #AEDF11;
+}
+
+.hawkers {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 7px;
+    z-index: 1001;
+    background-color: #114D5A;
+}
+
+.busstops {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 7px;
+    z-index: 1001;
+    background-color: #EE4D5A;
+}
+
+.shopping {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 7px;
+    z-index: 1001;
+    background-color: #ff5722;
+}
+
+.btos {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 7px;
+    z-index: 1001;
+    background-color: rgba(128, 128, 128, 1);
+}
