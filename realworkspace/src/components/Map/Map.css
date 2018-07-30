@@ -7,15 +7,14 @@
 }
 
 #legend {
-    height: 5%;
-    width: 10%;
+    font-size: 70%;
     color: black;
-    background-color: white;
+    background-color: rgb(246, 251, 255);
     position: absolute;
-    height: 50px;
-    width: 435px;
-    top: 625px;
-    left: 1156px;
+    height: 40px;
+    width: 255px;
+    top: 635px;
+    left: 1270px;
     z-index: 1000;
     margin: 10px;
 }

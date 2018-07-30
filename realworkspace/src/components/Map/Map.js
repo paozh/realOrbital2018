@@ -157,6 +157,7 @@ class MainMap extends React.Component {
 				<BTOSectorLayer style={BTOStyle}
 								client={client}
 								hidden={false}
+								handleMarker={this.handleMarker}
 								/>
 
 			</Map>

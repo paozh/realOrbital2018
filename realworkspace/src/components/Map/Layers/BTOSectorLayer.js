@@ -38,7 +38,7 @@ class BTOLayer extends Component {
     client.addLayer(this.layer);
     client.getLeafletLayer().addTo(this.context.map);
 
-    this.layer.on('featureClicked', this.openTooltip);
+    this.layer.on('featureOver', this.openTooltip);
   }
 
   openTooltip = (featureEvent) => {
