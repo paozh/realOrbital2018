@@ -1,11 +1,12 @@
 import React from 'react';
-import { Map, TileLayer, Tooltip, Marker, LayersControl, AtttributionControl} from 'react-leaflet';
+import { Map, TileLayer, Tooltip, Marker} from 'react-leaflet';
 import './Map.css';
 import carto from '@carto/carto.js';
 import BusLayer from './Layers/BusLayer';
 import BTOLayer from './Layers/BTOLayer';
 import SchoolLayer from './Layers/SchoolLayer';
 import HawkerLayer from './Layers/HawkerLayer';
+import BTOSectorLayer from './Layers/BTOSectorLayer';
 
 var CARTO_BASEMAP = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png';
 
@@ -23,10 +24,11 @@ var busStyle = `
 
 var BTOStyle = `
 	#layer {
-		polygon-fill: rgba(128, 128, 128, 1);
-		polygon-opacity: 0.2;
+		polygon-fill: rgba(28, 128, 28, 1);
+		polygon-opacity: 0.4;
 	}
 `;
+
 
 var schoolStyle = `
 	#layer {
@@ -48,7 +50,7 @@ var hawkerStyle = `
 // Initial boundaries set for panning, [LEFT CORNER, RIGHT CORNER] (longitude, latitude) OR (y,x)
 var bounds = [[1.2462530584216953,103.17157000878907], [1.4573106102494986,104.02299579003907]]; 
 
-class MapExample extends React.Component {
+class MainMap extends React.Component {
 
     state = {
 	    center: [1.355075, 103.60494],
@@ -59,26 +61,37 @@ class MapExample extends React.Component {
 		mapRef: null,
 		markerPosition: [1.316245, 103.805636],
 		markerContent: "hellohello",
+		hideBTO: false
 	}    
 
 	componentDidMount() {
 		// Make a reference to Leaflet Map object, which is in <Map ref="map"/> below
-		this.state.mapRef = this.refs.map.leafletElement; 
+		this.setState({
+			mapRef: this.refs.map.leafletElement
+		})
 	}
 
 	handleReset = () => {
-		console.log("flying");
+		console.log("resetting");
+		if(this.state.hideBTO) {
+			this.setState({
+				hideBTO: false
+			});	
+		}
 		this.state.mapRef.flyToBounds(bounds);
 	}
 
 	handlePan = (btoBounds) => {
 		console.log("panning");
+		if(!this.state.hideBTO) {
+			this.setState({
+				hideBTO: true
+			});
+		}
 		this.state.mapRef.flyToBounds(btoBounds);
-		console.log("panning done");
 	}
 
 	handleMarker = (position, content) => {
-		console.log("moving Marker/Popup");
 		// change the position of the marker, and the content within the popup
 		this.setState( {
 			markerPosition: position,
@@ -86,13 +99,18 @@ class MapExample extends React.Component {
 		});
 	}
 
-	render(){
+	// not sure how props.shouldReset works
+	shouldComponentUpdate() {
 		if (this.props.shouldReset) {
-			console.log("shouldReset");
 			this.handleReset();
 			this.props.resetClosure();
+			return true;
+		} else {
+			return true;
 		}
+	}
 
+	render(){
 		const { center, zoom, maxBounds, maxZoom, minZoom } = this.state;
 
 		return (
@@ -107,7 +125,6 @@ class MapExample extends React.Component {
 				minZoom={minZoom}
 				>
 				<TileLayer 
-					attribution = "Input value in TileLayer: Attribution"
 					url = {CARTO_BASEMAP} 
 					/>
 				<Marker position = {this.state.markerPosition} draggable={true} id="marker">
@@ -115,45 +132,48 @@ class MapExample extends React.Component {
 						  <h5> {this.state.markerContent}</h5>
         				</Tooltip>
       				</Marker> 
-				{/* <BusLayer style={busStyle} 
+				<BusLayer style={busStyle} 
 							  client={client} 
-							  hidden={false}/> */}
+							  hidden={this.props.busStopHidden} 
+							  handleMarker={this.handleMarker}
+							  />
 				<BTOLayer onClick={this.handlePan} 
 						  style={BTOStyle} 
 						  client={client} 
-						  hidden={false}/>
-				{/* <SchoolLayer style={schoolStyle} 
-							 hidden={false} 
-							 client={client}/>
+						  hidden={this.state.hideBTO}
+						  handleMarker={this.handleMarker}
+						  />
+				<SchoolLayer style={schoolStyle} 
+							 hidden={this.props.schoolHidden} 
+							 client={client}
+							 handleMarker={this.handleMarker}
+							 />
 				<HawkerLayer mapRef={this.state.mapRef} 
 							 style={hawkerStyle} 
-							 hidden={false} 
+							 hidden={this.props.hawkerHidden} 
 							 client={client} 
 							 handleMarker={this.handleMarker}
 							 />
-				<ShoppingLayer 
-							style={shoppingStyle} 
-							hidden={false} 
-							client={client}/> */}
+				<BTOSectorLayer style={BTOStyle}
+								client={client}
+								hidden={false}
+								/>
+
 			</Map>
 			<div id="legend">
 				<b> Legend </b>
-				<span class="btos">
-					
-					</span>
+				<span className="btos">	</span>
 				BTO
-				<span class="schools"> </span>
+				<span className="schools"> </span>
 				Schools
-				<span class="hawkers"> </span>
+				<span className="hawkers"> </span>
 				Hawker Centers
-				<span class="busstops"> </span>
+				<span className="busstops"> </span>
 				Bus Stops
-				<span class="shopping"> </span>
-				Shopping Centers
 			</div>	
 		</div>
 		);
 	}
 }
 
-export default MapExample;
+export default MainMap;

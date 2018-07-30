@@ -1,15 +1,18 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import carto from '@carto/carto.js';
+import carto from '@carto/carto.js'; 
 
-class Layer extends Component {
+class BTOLayer extends Component {
+  state = {
+    hidden: null
+  }
+
   static contextTypes = {
     map: PropTypes.object,
   };
 
   static propTypes = {
     source: PropTypes.string,
-    style: PropTypes.string,
     client: PropTypes.object,
     hidden: PropTypes.bool
   }
@@ -17,25 +20,39 @@ class Layer extends Component {
   constructor(props) {
     super(props);
 
-    const { hidden, source, style } = props;
+    const { hidden, style } = props;
+    const SQLquery = 'SELECT * FROM current_bto_sectors';
 
-    const cartoSource = new carto.source.SQL(source);
+    const cartoSource = new carto.source.SQL(SQLquery);
     const cartoStyle = new carto.style.CartoCSS(style);
 
-    this.layer = new carto.layer.Layer(cartoSource, cartoStyle);
-    this.setVisibility(hidden)
+    // need to input the bounds in the BTO layer dataset
+    this.layer = new carto.layer.Layer(cartoSource, cartoStyle, {
+      featureClickColumns: ['name', 'latitude', 'longitude']
+    });
+    this.setVisibility(hidden);
   }
 
   componentDidMount() {
     const { client } = this.props;
     client.addLayer(this.layer);
     client.getLeafletLayer().addTo(this.context.map);
+
+    this.layer.on('featureClicked', this.openTooltip);
   }
 
+  openTooltip = (featureEvent) => {
+    this.props.handleMarker([featureEvent.data.latitude,
+        featureEvent.data.longitude],
+        featureEvent.data.name);
+  }
+
+  // Optimisation of updates, not required for functionality
   shouldComponentUpdate(nextProps) {
     return nextProps.style !== this.props.style || nextProps.hidden !== this.props.hidden;
   }
 
+  // Hides the layer when called in render()
   setVisibility = isHidden => {
     isHidden ? this.layer.hide() : this.layer.show();
   }
@@ -43,11 +60,10 @@ class Layer extends Component {
   render() {
     const { hidden, style } = this.props;
     const layerStyle = this.layer.getStyle();
-
     layerStyle.setContent(style).then(() => this.setVisibility(hidden));
 
     return null;
   }
 }
 
-export default Layer;
+export default BTOLayer;

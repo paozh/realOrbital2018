@@ -18,12 +18,14 @@ class SchoolLayer extends Component {
 
     // Change the source, to a customised one
     const { hidden, style } = props;
-    const SQLsource = `SELECT * FROM school_data`;
+    const SQLsource = `SELECT * FROM school_data_most_updated`;
 
     const cartoSource = new carto.source.SQL(SQLsource);
     const cartoStyle = new carto.style.CartoCSS(style);
 
-    this.layer = new carto.layer.Layer(cartoSource, cartoStyle);
+    this.layer = new carto.layer.Layer(cartoSource, cartoStyle, {
+      featureOverColumns: ['school_name', 'longitude', 'latitude']
+    });
     this.setVisibility(hidden)
   }
 
@@ -31,6 +33,8 @@ class SchoolLayer extends Component {
     const { client } = this.props;
     client.addLayer(this.layer);
     client.getLeafletLayer().addTo(this.context.map);
+
+    this.layer.on('featureOver', this.openTooltip);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -41,10 +45,23 @@ class SchoolLayer extends Component {
     isHidden ? this.layer.hide() : this.layer.show();
   }
 
+  //Function that adds the Tooltip functionality
+  openTooltip = (featureEvent) => {
+    this.props.handleMarker([featureEvent.data.latitude,
+        featureEvent.data.longitude],
+        featureEvent.data.school_name);
+  }
+
   render() {
     const { hidden, style } = this.props;
+    
+    if (hidden) {
+      this.layer.hide();
+    } else {
+      this.layer.show();
+    }
+    
     const layerStyle = this.layer.getStyle();
-
     layerStyle.setContent(style).then(() => this.setVisibility(hidden));
 
     return null;

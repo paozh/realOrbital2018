@@ -6,13 +6,9 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Button
  } from 'reactstrap';
+import CheckBoxes from '../NavCol/CheckBoxes/CheckBoxes';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -39,25 +35,14 @@ export default class NavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Button color="primary" onClick={this.props.onClick}> Reset </Button>
+                <CheckBoxes toggleBusHidden={this.props.toggleBusHidden}
+                            toggleSchoolHidden={this.props.toggleSchoolHidden}
+                            toggleHawkerHidden={this.props.toggleHawkerHidden}
+                  />
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <NavItem> 
+                <Button color="primary" onClick={this.props.onClick}> Reset </Button>
+                </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

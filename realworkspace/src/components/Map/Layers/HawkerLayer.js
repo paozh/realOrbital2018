@@ -39,12 +39,15 @@ class HawkerLayer extends Component {
     this.setVisibility(hidden)
   }
 
-  openPopup = (featureEvent) => {
+  /*
+   * Takes in the featureEvent, whose properities are defined by featureOverColumns
+   * Uses the handlerMarker that was passed as a props from Map.js 
+   */
+  openTooltip = (featureEvent) => {
     this.props.handleMarker([parseFloat(featureEvent.data.latitude),
         parseFloat(featureEvent.data.longitude)],
         featureEvent.data.name);
   }
-
 
   componentDidMount() {
     const { client } = this.props;
@@ -52,14 +55,11 @@ class HawkerLayer extends Component {
     client.getLeafletLayer().addTo(this.context.map);
 
     // Add carto hoverOver & hoverOut functions as second argument
-    this.layer.on('featureOver', this.openPopup);
-    //this.layer.on('featureOut', this.closePopup); 
+    this.layer.on('featureOver', this.openTooltip);
   }
 
-  // Component updates if the props.style or props.hidden are different
   shouldComponentUpdate(nextProps) {
-    return true;
-    //return nextProps.style !== this.props.style;
+    return nextProps.style !== this.props.style || nextProps.hidden !== this.props.hidden;
   }
 
   // Sets the visibility of the layers 
@@ -67,11 +67,16 @@ class HawkerLayer extends Component {
     isHidden ? this.layer.hide() : this.layer.show();
   }
 
-
-
   render() {
-    const { handleMarker, hidden, style } = this.props;
+    const { hidden, style } = this.props;
     const layerStyle = this.layer.getStyle();
+
+    if (hidden) {
+      console.log("in hawker layer");
+      this.layer.hide();
+    } else {
+      this.layer.show();
+    }
 
     layerStyle.setContent(style).then(() => this.setVisibility(hidden));
     return null;
