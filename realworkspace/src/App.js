@@ -4,6 +4,7 @@ import Map from './components/Map/Map';
 import NavBar from './components/NavBar/NavBar';
 // import NavCol from './components/NavCol/NavCol';
 // import CheckBoxes from './components/NavCol/CheckBoxes/CheckBoxes';
+import Alert from './components/Alert/Alert';
 
 export default class App extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <Alert/>
         <div className="content-fixed">
           <NavBar onClick={this.resetHandler} 
                   toggleHawkerHidden={this.toggleHawkerHidden} 

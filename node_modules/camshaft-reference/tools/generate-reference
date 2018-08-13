@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var fs = require('fs');
+var util = require('util');
+var semver = require('semver');
+
+var argv = require('yargs')
+    .help('h')
+    .alias('h', 'help')
+    .usage('Usage: $0 --force-update')
+    .option('f', {
+        alias: 'force-update',
+        type: 'boolean',
+        desc: 'when provided it will force an update over current version',
+        default: false
+    })
+    .option('t', {
+        alias: 'target',
+        type: 'string',
+        desc: 'target version, to override or use a different one',
+        default: false
+    })
+    .argv;
+
+var forceUpdate = argv.f;
+
+var existingVersions = fs.readdirSync('./versions').filter(function(path) {
+    return fs.statSync('./versions/' + path).isDirectory();
+}).sort(semver.compare);
+if (existingVersions.length > 0) {
+    console.info('Existing versions are: %s', existingVersions.join(', '));
+}
+
+var reference = require('../current-reference');
+var targetVersion = argv.t || reference.version;
+reference.version = targetVersion;
+console.info('Target version is: %s.', targetVersion);
+
+var targetVersionPath = './versions/' + targetVersion;
+var targetVersionPathExists = fs.existsSync(targetVersionPath);
+
+if (targetVersionPathExists && !forceUpdate) {
+    console.error('Target version "%s" already exists, check you have bumped the version.', targetVersion);
+    console.info('Or use -f option to force an update of this version');
+    process.exit(1);
+}
+
+if (!targetVersionPathExists) {
+    fs.mkdirSync(targetVersionPath);
+}
+
+var targetVersionReferencePath = targetVersionPath + '/reference.json';
+fs.writeFileSync(targetVersionReferencePath, JSON.stringify(reference, null, 4), {encoding: 'utf8'});
+console.info('Reference file "%s" %s.', targetVersionReferencePath, (targetVersionPathExists ? 'updated' : 'created'));
+
+var VERSION_TEMPLATE = '  \'%s\'';
+if (!targetVersionPathExists) {
+    existingVersions.push(targetVersion);
+}
+var allVersions = existingVersions.map(function(version) {
+    return util.format(VERSION_TEMPLATE, version);
+}).join(',\n');
+
+var VERSIONS_TEMPLATE = [
+    'module.exports.versions = [',
+    '%s',
+    '];',
+    '',
+    'module.exports.target = \'%s\';',
+    ''
+].join('\n');
+var versionsFileContents = util.format(VERSIONS_TEMPLATE, allVersions, targetVersion);
+fs.writeFileSync('./versions/index.js', versionsFileContents, {encoding: 'utf8'});
+
+
+console.info('New versions are : %s', existingVersions.join(', '));
