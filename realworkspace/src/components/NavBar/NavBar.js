@@ -9,6 +9,7 @@ import {
   Button
  } from 'reactstrap';
 import CheckBoxes from '../NavCol/CheckBoxes/CheckBoxes';
+import ModalGraph from '../Modals/ModalGraph';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -40,6 +41,11 @@ export default class NavBar extends React.Component {
                             toggleHawkerHidden={this.props.toggleHawkerHidden}
                   />
               </NavItem>
+
+              <NavItem> 
+                <ModalGraph buttonLabel="Graphs"/>
+                </NavItem>
+
               <NavItem> 
                 <Button color="primary" onClick={this.props.onClick}> Reset </Button>
                 </NavItem>

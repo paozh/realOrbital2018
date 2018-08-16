@@ -68,6 +68,7 @@ class BusLayer extends Component {
     layerStyle.setContent(style).then(() => this.setVisibility(hidden));
 
     return null;
+    // need to make a React.forwardRef(containing a component with a props.ref)
   }
 }
 

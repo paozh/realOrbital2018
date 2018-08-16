@@ -7,6 +7,7 @@ import BTOLayer from './Layers/BTOLayer';
 import SchoolLayer from './Layers/SchoolLayer';
 import HawkerLayer from './Layers/HawkerLayer';
 import BTOSectorLayer from './Layers/BTOSectorLayer';
+import Card from '../Card/Card';
 
 var CARTO_BASEMAP = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png';
 
@@ -124,6 +125,10 @@ class MainMap extends React.Component {
 				maxZoom={maxZoom}
 				minZoom={minZoom}
 				>
+				<Card cardText="blahblahblah" 
+					  client={client}
+					  mapRef={this.state.mapRef}
+					/>
 				<TileLayer 
 					url = {CARTO_BASEMAP} 
 					/>
@@ -133,10 +138,10 @@ class MainMap extends React.Component {
         				</Tooltip>
       				</Marker> 
 				<BusLayer style={busStyle} 
-							  client={client} 
-							  hidden={this.props.busStopHidden} 
-							  handleMarker={this.handleMarker}
-							  />
+						  client={client} 
+						  hidden={this.props.busStopHidden} 
+						  handleMarker={this.handleMarker}
+						  />
 				<BTOLayer onClick={this.handlePan} 
 						  style={BTOStyle} 
 						  client={client} 
