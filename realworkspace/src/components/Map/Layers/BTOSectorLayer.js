@@ -21,14 +21,15 @@ class BTOLayer extends Component {
     super(props);
 
     const { hidden, style } = props;
-    const SQLquery = 'SELECT * FROM current_bto_sectors';
+    const SQLquery = 'SELECT * FROM current_bto_sectors_1';
 
     const cartoSource = new carto.source.SQL(SQLquery);
     const cartoStyle = new carto.style.CartoCSS(style);
 
     // need to input the bounds in the BTO layer dataset
     this.layer = new carto.layer.Layer(cartoSource, cartoStyle, {
-      featureClickColumns: ['name', 'latitude', 'longitude']
+      featureClickColumns: ['name', 'top_right_lat', 'top_right_long',
+           'bottom_left_lat', 'bottom_left_long', 'latitude', 'longitude']
     });
     this.setVisibility(hidden);
   }
@@ -39,8 +40,15 @@ class BTOLayer extends Component {
     client.getLeafletLayer().addTo(this.context.map);
 
     this.layer.on('featureOver', this.openTooltip);
+    this.layer.on('featureClicked', featureEvent => {
+      const southWest = [featureEvent.data.bottom_left_lat, featureEvent.data.bottom_left_long];
+      const northEast = [featureEvent.data.top_right_lat, featureEvent.data.top_right_long];
+      // [lat,long], increase lat goes up; increase long, goes right
+      this.props.onClick([southWest, northEast]);
+    });
   }
 
+  // Functionality that shows the tooltip for this feature.
   openTooltip = (featureEvent) => {
     this.props.handleMarker([featureEvent.data.latitude,
         featureEvent.data.longitude],

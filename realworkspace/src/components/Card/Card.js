@@ -6,11 +6,10 @@ import carto from '@carto/carto.js';
 export default class Carda extends React.Component {
     constructor(props) {
         super(props);
-        const {client, mapRef} = this.props;
-        this.busDataSet = new carto.source.Dataset('busstop_most_updated_1');
-        this.busDataview = new carto.dataview.Category(this.busDataSet, 'name', {
-                limit: 2,
-                operation: carto.operation.MIN,
+        this.busSource = new carto.source.SQL('SELECT * FROM busstop_most_updated_1');
+        this.busDataview = new carto.dataview.Category(this.busSource, 'name', {
+                limit: 3,
+                operation: carto.operation.MAX,
                 operationColumn: 'distance_to_yishun_east'
             }
         );
@@ -40,19 +39,46 @@ export default class Carda extends React.Component {
 
         const { client, mapRef } = this.props;
         this.busDataview.on('dataChanged', (data) => {
-            
+
             const categories = data.categories.map(category => `
                 <li>
-                <h3> ${category.name} </h3>
+                    "this is" + ${category.name} + "next is: " + ${category.value}
                 </li>
             `).join('');
-            this.setState({
-                content: <ul> ${categories} </ul>
-            });
+
+            document.querySelector('.cardtext').innerHTML = `<ul> ${categories} </ul>`;
         });
         client.addDataview(this.busDataview);
         const bboxFilter = new carto.filter.BoundingBoxLeaflet(mapRef);
         this.busDataview.addFilter(bboxFilter);
+    }
+
+    componentDidUpdate() {
+        console.log("new featureOnFocus is: " + this.props.featureOnFocus);
+        
+        // // change sqlquery of dataset
+        // switch(this.props.featureOnFocus) {
+        //     case "Yishun East": {
+        //         this.busSource.setQuery('');
+        //         console.log("featureOnFocus is yishun east");
+        //         break;
+        //     }
+
+        //     case "Yishun West": {
+        //         this.busSource.setQuery('');
+        //         console.log("featureOnFocus is yishun west");
+        //         break;
+        //     }
+
+        //     case "Punggol": {
+        //         this.busSource.setQuery('');
+        //         console.log("featureOnFocus is punggol");
+        //         break;
+        //     }
+
+        //     default:
+        //         console.log("invalid featureOnFocus");
+        // }
     }
 
 
@@ -63,10 +89,9 @@ export default class Carda extends React.Component {
                 <CardBody>
                 <CardTitle>{this.props.cardTitle}</CardTitle>
                 <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>\
+                <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
                 <CardText> {this.props.cardText} </CardText>
-                <CardText> {this.state.content} </CardText>
-                <Button>Button</Button>
+                <CardText className="cardtext">  </CardText>
                 </CardBody>
             </Card>
             </div>

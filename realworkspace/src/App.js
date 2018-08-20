@@ -16,7 +16,8 @@ export default class App extends Component {
       btoHidden: false,
       schoolHidden: false,
       hawkerHidden: false,
-      shoppingHidden: false
+      shoppingHidden: false,
+      featureOnFocus: null
     };
   }
 
@@ -33,11 +34,11 @@ export default class App extends Component {
   }
 
   toggleHawkerHidden = () => {
-    console.log("in appjs, toggling hawker hidden");
+    // console.log("in appjs, toggling hawker hidden");
     this.setState({
       hawkerHidden: !this.state.hawkerHidden 
     });
-    console.log("done");
+    // console.log("done");
   }
   
   // Watch out for naming convention, can't pinpoint error.
@@ -51,6 +52,14 @@ export default class App extends Component {
     this.setState({
       schoolHidden: !this.state.schoolHidden 
     });
+  }
+  
+  // featureName is a string
+	handleFeatureOnFocus = (featureName) => {
+    console.log("featureOnFocus is: " + featureName);
+		// this.setState({
+		// 	featureOnFocus: featureName
+		// })
 	}
 
   render() {
@@ -61,6 +70,7 @@ export default class App extends Component {
                   toggleHawkerHidden={this.toggleHawkerHidden} 
                   toggleBusHidden={this.toggleBusStopHidden} 
                   toggleSchoolHidden={this.toggleSchoolHidden}
+                  handleFeatureOnFocus={this.handleFeatureOnFocus}
                   />
         </div>
         
@@ -70,8 +80,8 @@ export default class App extends Component {
                  hawkerHidden={this.state.hawkerHidden}
                  busStopHidden={this.state.busStopHidden}
                  schoolHidden={this.state.schoolHidden}
+                 featureOnFocus={this.state.featureOnFocus}
                  />
-            
         </div>
  
         <ModalOnStart/>

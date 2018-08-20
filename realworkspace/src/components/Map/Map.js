@@ -61,8 +61,7 @@ class MainMap extends React.Component {
 		minZoom: 12,
 		mapRef: null,
 		markerPosition: [1.316245, 103.805636],
-		markerContent: "hellohello",
-		hideBTO: false
+		markerContent: "hellohello"
 	}    
 
 	componentDidMount() {
@@ -74,21 +73,16 @@ class MainMap extends React.Component {
 
 	handleReset = () => {
 		console.log("resetting");
-		if(this.state.hideBTO) {
-			this.setState({
-				hideBTO: false
-			});	
-		}
+		// if(this.state.hideBTO) {
+		// 	this.setState({
+		// 		hideBTO: false
+		// 	});	
+		// }
 		this.state.mapRef.flyToBounds(bounds);
 	}
 
 	handlePan = (btoBounds) => {
 		console.log("panning");
-		if(!this.state.hideBTO) {
-			this.setState({
-				hideBTO: true
-			});
-		}
 		this.state.mapRef.flyToBounds(btoBounds);
 	}
 
@@ -128,6 +122,7 @@ class MainMap extends React.Component {
 				<Card cardText="blahblahblah" 
 					  client={client}
 					  mapRef={this.state.mapRef}
+					  featureOnFocus={this.props.featureOnFocus}
 					/>
 				<TileLayer 
 					url = {CARTO_BASEMAP} 
@@ -142,12 +137,12 @@ class MainMap extends React.Component {
 						  hidden={this.props.busStopHidden} 
 						  handleMarker={this.handleMarker}
 						  />
-				<BTOLayer onClick={this.handlePan} 
+				{/* <BTOLayer onClick={this.handlePan} 
 						  style={BTOStyle} 
 						  client={client} 
 						  hidden={this.state.hideBTO}
 						  handleMarker={this.handleMarker}
-						  />
+						  /> */}
 				<SchoolLayer style={schoolStyle} 
 							 hidden={this.props.schoolHidden} 
 							 client={client}
@@ -159,7 +154,8 @@ class MainMap extends React.Component {
 							 client={client} 
 							 handleMarker={this.handleMarker}
 							 />
-				<BTOSectorLayer style={BTOStyle}
+				<BTOSectorLayer onClick={this.handlePan}
+								style={BTOStyle}
 								client={client}
 								hidden={false}
 								handleMarker={this.handleMarker}

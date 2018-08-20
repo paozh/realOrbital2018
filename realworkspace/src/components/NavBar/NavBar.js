@@ -21,6 +21,7 @@ export default class NavBar extends React.Component {
       isStart: true
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -45,9 +46,17 @@ export default class NavBar extends React.Component {
               <NavItem> 
                 <ModalGraph buttonLabel="Graphs"/>
                 </NavItem>
-
               <NavItem> 
-                <Button color="primary" onClick={this.props.onClick}> Reset </Button>
+                <Button color="primary" onClick={this.props.handleFeatureOnFocus("Punggol")}> Punggol BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                <Button color="primary" onClick={this.props.handleFeatureOnFocus("Yishun West")}> Yishun West BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                  <Button color="primary" onClick={this.props.handleFeatureOnFocus("Yishun East")}> Yishun East BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                  <Button color="primary" onClick={this.props.onClick}> Reset </Button>
                 </NavItem>
             </Nav>
           </Collapse>
