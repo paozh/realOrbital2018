@@ -47,13 +47,13 @@ export default class NavBar extends React.Component {
                 <ModalGraph buttonLabel="Graphs"/>
                 </NavItem>
               <NavItem> 
-                <Button color="primary" onClick={this.props.handleFeatureOnFocus("Punggol")}> Punggol BTOs </Button>
+                <Button color="primary" onClick={this.props.moveToPunggol}> Punggol BTOs </Button>
                 </NavItem>
               <NavItem> 
-                <Button color="primary" onClick={this.props.handleFeatureOnFocus("Yishun West")}> Yishun West BTOs </Button>
+                <Button color="primary" onClick={this.props.moveToYishunWest}> Yishun West BTOs </Button>
                 </NavItem>
               <NavItem> 
-                  <Button color="primary" onClick={this.props.handleFeatureOnFocus("Yishun East")}> Yishun East BTOs </Button>
+                  <Button color="primary" onClick={this.props.moveToYishunEast}> Yishun East BTOs </Button>
                 </NavItem>
               <NavItem> 
                   <Button color="primary" onClick={this.props.onClick}> Reset </Button>

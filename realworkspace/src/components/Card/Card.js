@@ -36,26 +36,35 @@ export default class Carda extends React.Component {
 
 
     componentDidMount() {
-
         const { client, mapRef } = this.props;
-        this.busDataview.on('dataChanged', (data) => {
+        
+        if (mapRef != null) {
+        
+            this.busDataview.on('dataChanged', (data) => {
 
-            const categories = data.categories.map(category => `
-                <li>
-                    "this is" + ${category.name} + "next is: " + ${category.value}
-                </li>
-            `).join('');
+                const categories = data.categories.map(category => `
+                    <li>
+                        "this is" + ${category.name} + "next is: " + ${category.value}
+                    </li>
+                `).join('');
 
-            document.querySelector('.cardtext').innerHTML = `<ul> ${categories} </ul>`;
-        });
-        client.addDataview(this.busDataview);
-        const bboxFilter = new carto.filter.BoundingBoxLeaflet(mapRef);
-        this.busDataview.addFilter(bboxFilter);
+                document.querySelector('.cardtext').innerHTML = `<ul> ${categories} </ul>`;
+            });
+            client.addDataview(this.busDataview);
+            //console.log("in card componentDidMount: this.props.mapRef: " + this.props.mapRef );
+            const bboxFilter = new carto.filter.BoundingBoxLeaflet(mapRef);
+            this.busDataview.addFilter(bboxFilter);
+        }
+    }
+
+    shouldComponentUpdate() {
+        //console.log("in card shouldComponentUpdate: this.props.mapRef: " + this.props.mapRef );
+        return true;
     }
 
     componentDidUpdate() {
-        console.log("new featureOnFocus is: " + this.props.featureOnFocus);
-        
+        // console.log("new featureOnFocus will be: " + this.props.featureOnFocus);
+        // console.log("in card componentDidUpdate: this.props.mapRef: " + this.props.mapRef );
         // // change sqlquery of dataset
         // switch(this.props.featureOnFocus) {
         //     case "Yishun East": {
