@@ -28,7 +28,8 @@ export default class App extends Component {
   moveToYishunEastHandler = () => {
     //console.log("will move to Yishun East");
     this.setState({
-      shouldMoveToYishunEast: true
+      shouldMoveToYishunEast: true,
+      featureOnFocus: "Yishun East"
     });
   }
 
@@ -43,7 +44,8 @@ export default class App extends Component {
   moveToYishunWestHandler = () => {
     //console.log("will move to Yishun West");
     this.setState({
-      shouldMoveToYishunWest: true
+      shouldMoveToYishunWest: true,
+      featureOnFocus: "Yishun West"
     });
   }
 
@@ -57,7 +59,8 @@ export default class App extends Component {
   moveToPunggolHandler = () => {
     //console.log("will move to Punggol");
     this.setState({
-      shouldMoveToPunggol: true
+      shouldMoveToPunggol: true,
+      featureOnFocus: "Punggol"
     });
   }
 
@@ -71,7 +74,8 @@ export default class App extends Component {
   resetHandler = () => {
     //console.log("in resetHandler");
     this.setState( {
-      shouldReset: true
+      shouldReset: true,
+      featureOnFocus: null
     })
   }
 
@@ -101,35 +105,32 @@ export default class App extends Component {
   }
   
   // featureName is a string
-	handleFeatureOnFocus = (featureName) => {
+	// handleFeatureOnFocus = (featureName) => {
 
-    switch(featureName) {
-      case "Yishun East": {
-        console.log("In switch: moveToYishunEast()");
-        this.moveToYishunEastHandler();
-        break;
-      }
+  //   switch(featureName) {
+  //     case "Yishun East": {
+  //       console.log("In switch: moveToYishunEast()");
+  //       this.moveToYishunEastHandler();
+  //       break;
+  //     }
 
-      case "Yishun West": {
-        console.log("In switch: moveToYishunWest()");
-        break;
-      }
+  //     case "Yishun West": {
+  //       console.log("In switch: moveToYishunWest()");
+  //       break;
+  //     }
 
-      case "Punggol": {
-        console.log("In switch: moveToPunggol()");
-        break;
-      }
+  //     case "Punggol": {
+  //       console.log("In switch: moveToPunggol()");
+  //       break;
+  //     }
 
-      default: {
-        console.log("invalid featureName");
-      }
-    }
+  //     default: {
+  //       console.log("invalid featureName");
+  //     }
+  //   }
 
-    console.log("featureOnFocus is: " + featureName);
-		// this.setState({
-		// 	featureOnFocus: featureName
-		// })
-  }
+  //   console.log("featureOnFocus is: " + featureName);
+  // }
   
   render() {
     return (
@@ -142,7 +143,6 @@ export default class App extends Component {
                   toggleHawkerHidden={this.toggleHawkerHidden} 
                   toggleBusHidden={this.toggleBusStopHidden} 
                   toggleSchoolHidden={this.toggleSchoolHidden}
-                  handleFeatureOnFocus={this.handleFeatureOnFocus}
                   />
         </div>
         
