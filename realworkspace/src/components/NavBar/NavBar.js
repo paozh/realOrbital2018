@@ -56,7 +56,7 @@ export default class NavBar extends React.Component {
                   <Button color="primary" onClick={this.props.moveToYishunEast}> Yishun East BTOs </Button>
                 </NavItem>
               <NavItem> 
-                  <Button color="primary" onClick={this.props.onClick}> Reset </Button>
+                  <Button color="danger" onClick={this.props.onClick}> Reset </Button>
                 </NavItem>
             </Nav>
           </Collapse>

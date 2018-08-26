@@ -11,7 +11,7 @@ const DISTANCE_YE = 'distance_to_yishun_east';
 export default class Carda extends React.Component {
     constructor(props) {
         super(props);        
-        this.busSource = new carto.source.SQL('SELECT * FROM busstop_most_updated_1');
+        this.busSource = new carto.source.SQL('SELECT * FROM busstop_most_updated_1_copy');
         this.busDataview = new carto.dataview.Category(this.busSource, 'name', {
                 limit: 3,
                 operation: carto.operation.MIN,
@@ -34,16 +34,7 @@ export default class Carda extends React.Component {
                 operationColumn: "NULL"
             }
         )
-
-        // when featureOnFocus changes, have to change the SQL query accordingly.
-        // For example, when featureOnFocus is Punggol, then the SQL query for all 3 sources should change to select distance_to_punggol 
-        // state = {
-        //     content: <h1> "hello" </h1>
-        // }
-
     }
-
-
 
 
     componentDidMount() {
@@ -55,7 +46,7 @@ export default class Carda extends React.Component {
             const busHeading = "Nearest Bus Stops: ";
             const schoolHeading = "Nearest Schools: ";
             const hawkerHeading = "Nearest Hawker Centers: ";
-
+            
             this.busDataview.on('dataChanged', (data) => {
 
                 busInner = data.categories.map(category => 
@@ -105,7 +96,8 @@ export default class Carda extends React.Component {
                                                                     ${schoolInner}
                                                                     </ul>`;
             });
-            
+
+
             const bboxFilter = new carto.filter.BoundingBoxLeaflet(mapRef);
 
             client.addDataview(this.schoolDataview);
@@ -155,30 +147,6 @@ export default class Carda extends React.Component {
         }
 
         console.log("new featureOnFocus will be: " + this.props.featureOnFocus);
-        // console.log("in card componentDidUpdate: this.props.mapRef: " + this.props.mapRef );
-        // // change sqlquery of dataset
-        // switch(this.props.featureOnFocus) {
-        //     case "Yishun East": {
-        //         this.busSource.setQuery('');
-        //         console.log("featureOnFocus is yishun east");
-        //         break;
-        //     }
-
-        //     case "Yishun West": {
-        //         this.busSource.setQuery('');
-        //         console.log("featureOnFocus is yishun west");
-        //         break;
-        //     }
-
-        //     case "Punggol": {
-        //         this.busSource.setQuery('');
-        //         console.log("featureOnFocus is punggol");
-        //         break;
-        //     }
-
-        //     default:
-        //         console.log("invalid featureOnFocus");
-        // }
     }
 
 
@@ -187,10 +155,10 @@ export default class Carda extends React.Component {
             <div className="card1">
             <Card>
                 <CardBody>
-                <CardTitle>{this.props.cardTitle}</CardTitle>
-                <CardSubtitle> Insert Card subtitle</CardSubtitle>
+                {/* <CardTitle>{this.props.cardTitle}</CardTitle> */}
+                {/* <CardSubtitle> Insert Card subtitle</CardSubtitle>
                 <CardText>  Insert Some quick example text to build on the card title and make up the bulk of the card's content </CardText>
-                <CardText> {this.props.cardText} </CardText>
+                <CardText> {this.props.cardText} </CardText> */}
                 <CardText className="cardtext"> 
                     <Progress animated value="100"/>
                     </CardText>
