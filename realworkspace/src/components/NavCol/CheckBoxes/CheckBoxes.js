@@ -41,9 +41,9 @@ class CheckBoxes extends Component {
     return (
       <span className="checkboxes">
         <ButtonGroup size="medium">
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.cSelected.includes(1)}>Hawker Center</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.cSelected.includes(2)}>Bus Stops</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.cSelected.includes(3)}>Schools</Button>
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.cSelected.includes(1)}>Hawker Center</Button>
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.cSelected.includes(2)}>Bus Stops</Button>
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.cSelected.includes(3)}>Schools</Button>
         </ButtonGroup>
       </span>
     );
