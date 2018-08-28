@@ -4,8 +4,7 @@ import Map from './components/Map/MapAgain';
 import NavBar from './components/NavBar/NavBar';
 import ModalOnStart from './components/Modals/ModalOnStart';
 
-// Initial boundaries set for panning, [LEFT CORNER, RIGHT CORNER] (longitude, latitude) OR (y,x)
-var bounds = [[1.2462530584216953,103.17157000878907], [1.4573106102494986,104.02299579003907]]; 
+// Initial boundaries set for panning, [LEFT CORNER, RIGHT CORNER] (longitude, latitude) OR (y,x) 
 
 export default class App extends Component {
   constructor(props) {
@@ -103,34 +102,6 @@ export default class App extends Component {
       schoolHidden: !this.state.schoolHidden 
     });
   }
-  
-  // featureName is a string
-	// handleFeatureOnFocus = (featureName) => {
-
-  //   switch(featureName) {
-  //     case "Yishun East": {
-  //       console.log("In switch: moveToYishunEast()");
-  //       this.moveToYishunEastHandler();
-  //       break;
-  //     }
-
-  //     case "Yishun West": {
-  //       console.log("In switch: moveToYishunWest()");
-  //       break;
-  //     }
-
-  //     case "Punggol": {
-  //       console.log("In switch: moveToPunggol()");
-  //       break;
-  //     }
-
-  //     default: {
-  //       console.log("invalid featureName");
-  //     }
-  //   }
-
-  //   console.log("featureOnFocus is: " + featureName);
-  // }
   
   render() {
     return (

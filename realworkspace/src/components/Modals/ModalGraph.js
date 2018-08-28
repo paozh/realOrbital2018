@@ -22,7 +22,7 @@ class ModalGraph extends React.Component {
   render() {
     return (
       <div id="modalgraph">
-        <Button color="info" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button color="success" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} zIndex={10000} size={"lg"}>
           <ModalHeader toggle={this.toggle}> Prices of BTOs in different estates during 2008-2016  </ModalHeader>
           <ModalBody>

@@ -3,11 +3,11 @@ import { Map, TileLayer, Tooltip, Marker} from 'react-leaflet';
 import './Map.css';
 import carto from '@carto/carto.js';
 import BusLayer from './Layers/BusLayer';
-import BTOLayer from './Layers/BTOLayer';
 import SchoolLayer from './Layers/SchoolLayer';
 import HawkerLayer from './Layers/HawkerLayer';
 import BTOSectorLayer from './Layers/BTOSectorLayer';
 import Card from '../Card/Card';
+import Alert from './Alert/Alert';
 
 var CARTO_BASEMAP = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png';
 
@@ -15,6 +15,7 @@ var client = new carto.Client({
 	apiKey: 'cefaa4464d8aba5e9a3afff2d22cea54e15990c2',
 	username: 'wesleynsc'
 });
+
 var busStyle = `
 	#layer {
 		marker-width: 9;
@@ -177,6 +178,9 @@ class MainMap extends React.Component {
 								hidden={false}
 								handleMarker={this.handleMarker}
 								/>
+				<Alert className="alert" color="primary"> 
+					August 2018 Sales Launch: Punggol, Yishun East and Yishun West
+					</Alert> 
 
 			</Map>
 			<div id="legend">

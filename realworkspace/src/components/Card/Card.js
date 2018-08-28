@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardText, CardBody, CardTitle, CardSubtitle, Progress } from 'reactstrap';
+import { Card, CardText, CardBody, Progress } from 'reactstrap';
 import './Card.css';
 import carto from '@carto/carto.js';
 
@@ -11,9 +11,9 @@ const DISTANCE_YE = 'distance_to_yishun_east';
 export default class Carda extends React.Component {
     constructor(props) {
         super(props);        
-        this.busSource = new carto.source.SQL('SELECT * FROM busstop_most_updated_1_copy');
-        this.busDataview = new carto.dataview.Category(this.busSource, 'name', {
-                limit: 3,
+        this.busDataset = new carto.source.SQL('SELECT * FROM busstop_most_updated_1_copy');
+        this.busDataview = new carto.dataview.Category(this.busDataset, 'name', {
+                limit: 1000,
                 operation: carto.operation.MIN,
                 operationColumn: "NULL"
             }
@@ -21,7 +21,7 @@ export default class Carda extends React.Component {
 
         this.hawkerDataSet = new carto.source.SQL('SELECT * FROM hawker_centres_copy');
         this.hawkerDataview = new carto.dataview.Category(this.hawkerDataSet, 'name', {
-                limit: 3,
+                limit: 500,
                 operation: carto.operation.MIN,
                 operationColumn: "NULL"
             }
@@ -29,7 +29,7 @@ export default class Carda extends React.Component {
 
         this.schoolDataSet = new carto.source.Dataset('school_data_most_updated_copy');
         this.schoolDataview = new carto.dataview.Category(this.schoolDataSet, 'school_name', {
-                limit: 3,
+                limit: 500,
                 operation: carto.operation.MIN,
                 operationColumn: "NULL"
             }
@@ -49,7 +49,7 @@ export default class Carda extends React.Component {
             
             this.busDataview.on('dataChanged', (data) => {
 
-                busInner = data.categories.map(category => 
+                busInner = data.categories.reverse().slice(0,3).map(category => 
                     `<li>
                         ${category.name} : ${category.value.toFixed(2) + " meters"}
                     </li>`
@@ -66,7 +66,8 @@ export default class Carda extends React.Component {
             });
 
             this.hawkerDataview.on('dataChanged', (data) => {
-                hawkerInner = data.categories.map(category => 
+                
+                hawkerInner = data.categories.reverse().slice(0,3).map(category => 
                     `<li>
                         ${category.name} : ${category.value.toFixed(2) + " meters"}
                     </li>`
@@ -82,7 +83,7 @@ export default class Carda extends React.Component {
             });
             
             this.schoolDataview.on('dataChanged', (data) => {
-                schoolInner = data.categories.map(category => 
+                schoolInner = data.categories.reverse().slice(0,3).map(category => 
                     `<li>
                         ${category.name} : ${category.value.toFixed(2) + " meters"}
                     </li>`
