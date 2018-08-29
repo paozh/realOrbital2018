@@ -9,7 +9,7 @@ export default class Example extends React.Component {
             <li>Click any of the <Button color="info">Filters </Button> to toggle and filter out the features you are looking out for!</li>
          </ListGroupItem>
          <ListGroupItem color="info">
-            <li> Click on <Button color="primary"> BTO Sectors </Button> to view the its nearby amenities! </li>
+            <li> Click on <Button color="primary"> BTO Launches </Button> to view the its nearby amenities! </li>
             </ListGroupItem>
         <ListGroupItem color="info">
             <li> Click on <Button color="success"> Graphs </Button> to view the the BTO price trends in recent years!  </li>

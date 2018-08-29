@@ -34,6 +34,8 @@ export default class Carda extends React.Component {
                 operationColumn: "NULL"
             }
         )
+
+        this.featureTitle = " Nothing ";
     }
 
 
@@ -55,7 +57,8 @@ export default class Carda extends React.Component {
                     </li>`
                 ).join('');
 
-                document.querySelector('.cardtext').innerHTML = `<ul> 
+                document.querySelector('.cardtext').innerHTML = `   <h3> <strong> ${this.featureTitle} </strong> </h3>
+                                                                <ul> 
                                                                     <h5> ${busHeading} </h5> \n 
                                                                     ${busInner} \n
                                                                     <h5> ${hawkerHeading} </h5> \n 
@@ -72,7 +75,8 @@ export default class Carda extends React.Component {
                         ${category.name} : ${category.value.toFixed(2) + " meters"}
                     </li>`
                 ).join('');
-                document.querySelector('.cardtext').innerHTML = `<ul> 
+                document.querySelector('.cardtext').innerHTML = `   <h3> <strong> ${this.featureTitle} </strong> </h3>
+                                                                <ul> 
                                                                     <h5> ${busHeading} </h5> \n 
                                                                     ${busInner} \n
                                                                     <h5> ${hawkerHeading} </h5> \n 
@@ -88,7 +92,8 @@ export default class Carda extends React.Component {
                         ${category.name} : ${category.value.toFixed(2) + " meters"}
                     </li>`
                 ).join('');
-                document.querySelector('.cardtext').innerHTML = `<ul> 
+                document.querySelector('.cardtext').innerHTML = `   <h3> <strong> ${this.featureTitle} </strong> </h3>
+                                                                <ul> 
                                                                     <h5> ${busHeading} </h5> \n 
                                                                     ${busInner} \n
                                                                     <h5> ${hawkerHeading} </h5> \n 
@@ -120,6 +125,7 @@ export default class Carda extends React.Component {
         switch(this.props.featureOnFocus) {
             case "Yishun East": {
                 console.log("in card -> switch -> dist to YE");
+                this.featureTitle = "Amenities near Yishun East";
                 this.busDataview.setOperationColumn(DISTANCE_YE);
                 this.hawkerDataview.setOperationColumn(DISTANCE_YE);
                 this.schoolDataview.setOperationColumn(DISTANCE_YE);
@@ -128,6 +134,7 @@ export default class Carda extends React.Component {
 
             case "Yishun West": {
                 console.log("in card -> switch -> dist to  YW");
+                this.featureTitle = "Amenities near Yishun West";
                 this.busDataview.setOperationColumn(DISTANCE_YW);
                 this.hawkerDataview.setOperationColumn(DISTANCE_YW);
                 this.schoolDataview.setOperationColumn(DISTANCE_YW);
@@ -136,6 +143,7 @@ export default class Carda extends React.Component {
 
             case "Punggol": {
                 console.log("in card -> switch -> dist to punggol");
+                this.featureTitle = "Amenities near Punggol";
                 this.busDataview.setOperationColumn(DISTANCE_PUNGGOL);
                 this.hawkerDataview.setOperationColumn(DISTANCE_PUNGGOL);
                 this.schoolDataview.setOperationColumn(DISTANCE_PUNGGOL);

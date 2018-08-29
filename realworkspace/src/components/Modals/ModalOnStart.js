@@ -22,7 +22,7 @@ class ModalExample extends React.Component {
     return (
       <div>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} zIndex={10000}>
-          <ModalHeader toggle={this.toggle}> Welcome to the BTO Viewer Web Application! </ModalHeader>
+          <ModalHeader toggle={this.toggle}> Welcome to  BTOViewer! </ModalHeader>
           <ModalBody>
             <List/>
             </ModalBody>
