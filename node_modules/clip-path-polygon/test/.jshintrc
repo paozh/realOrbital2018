@@ -1,9 +1,0 @@
-{
-  "predef": {
-    "document": true,
-    "window": true,
-    "require": true,
-    "describe": true,
-    "beforeEach": true
-  }
-}

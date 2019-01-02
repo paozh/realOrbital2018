@@ -1,7 +1,0 @@
-{
-  "predef": {
-    "require": true,
-    "exports": true,
-    "module": true
-  }
-}
