@@ -2,6 +2,8 @@
 
 It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. The information is usually scattered across different websites and users may miss out on some critical details. Hence, we aim to create a website that not only summarises past and future BTO launches, but also allows users to make comparisons between the flats they are interested in. 
 
+
+![alt text](https://raw.githubusercontent.com/lingzhiyu/btoviewer/master/_BTO VIEWER_.png)
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
