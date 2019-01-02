@@ -1,6 +1,6 @@
-# <BTO VIEWER>
+# <BTO VIEWER!>
 
-It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. As the BTOs are released in batches, it can be difficult for users to obtain information on the historical prices of the different zones. There is also no current visualisation to help the user view the trend of BTOs over the past years. Moreover, as the BTO flats are yet to be built, it can be difficult for users to search for nearby ammenities as they would not know the exact location (e.g. postal code) of the BTO (They would only know the information on the zone). Hence, we decided to create a web app to help users by consolidating and visualising historical BTO prices and also, to show users on the exact location with the distance of nearby ammenities.
+It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. As the BTOs are released in batches, it can be difficult for users to obtain information on the historical prices of the different zones. There is also no current visualisation to help the user view the trend of BTOs over the past years. Moreover, as the BTO flats are yet to be built, it can be difficult for users to search for nearby ammenities as they would not know the exact location (e.g. postal code) of the BTO (They would only know the information on the zone). Hence, we decided to embark on a short journey to create a web app to help users by consolidating and visualising historical BTO prices and also, to show users on the exact location with the distance of nearby ammenities.
 
 
 <img src="/_BTO VIEWER_.png" alt="poster"/>
@@ -27,13 +27,16 @@ npm install
 npm run
 ```
 
+### Features
 
-End with an example of getting some data out of the system or using it for a little demo
+Interactive Map
+<img src="/BTO Homepage.jpg" alt="homepage"/>
 
+Time Series
+<img src="/Time Series.PNG" alt="time series"/>
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+Geospatial Analysis
+<img src="/Geospatial Analysis.jpg" alt="geospatial"/>
 
 ## Built With
 
@@ -50,9 +53,4 @@ Add additional notes about how to deploy this on a live system
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
