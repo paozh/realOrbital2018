@@ -1,6 +1,7 @@
-# <BTO VIEWER!>
+# <BTO VIEWER>
 
-It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. The information is usually scattered across different websites and users may miss out on some critical details. Hence, we aim to create a website that not only summarises past and future BTO launches, but also allows users to make comparisons between the flats they are interested in. 
+It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. As the BTOs are released in batches, it can be difficult for users to obtain information on the historical prices of the different zones. There is also no current visualisation to help the user view the trend of BTOs over the past years. Moreover, as the BTO flats are yet to be built, it can be difficult for users to search for nearby ammenities as they would not know the exact location (e.g. postal code) of the BTO (They would only know the information on the zone). Hence, we decided to create a web app to help users by consolidating and visualising historical BTO prices and also, to show users on the exact location with the distance of nearby ammenities.
+
 
 <img src="/_BTO VIEWER_.png" alt="poster"/>
 
@@ -13,24 +14,19 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Give examples
+Clone this repo to your local machine using https://github.com/lingzhiyu/btoviewer
 ```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+Install relevant dependencies in the current directory
+```
+npm install
+npm run
+```
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
