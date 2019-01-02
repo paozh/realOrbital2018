@@ -1,6 +1,6 @@
-# Project Title
+# <BTO VIEWER!>
 
-One Paragraph of project description goes here
+It has always been a hassle to search for relevant information online regarding Built-To-Order (BTO) flats. The information is usually scattered across different websites and users may miss out on some critical details. Hence, we aim to create a website that not only summarises past and future BTO launches, but also allows users to make comparisons between the flats they are interested in. 
 
 ## Getting Started
 
