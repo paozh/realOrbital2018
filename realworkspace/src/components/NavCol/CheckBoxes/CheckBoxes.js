@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
+import './CheckBoxes.css';
 
 class CheckBoxes extends Component {
   constructor (props) {
@@ -7,7 +8,6 @@ class CheckBoxes extends Component {
     
     this.state = { 
         cSelected: [],
-        layers: ['Amenities', 'Clinics', 'Groceries', 'Hawker Centers', 'Banks', 'Schools']
     };
 
     this.onCheckboxBtnClick = this.onCheckboxBtnClick.bind(this);
@@ -15,26 +15,37 @@ class CheckBoxes extends Component {
 
   onCheckboxBtnClick(selected) {
     const index = this.state.cSelected.indexOf(selected);
-    const item = this.state.layers[selected];
     if (index < 0) {
-      this.state.cSelected.push(item);
+      this.state.cSelected.push(selected);
     } else {
       this.state.cSelected.splice(index, 1);
     }
     this.setState({ cSelected: [...this.state.cSelected] });
+
+    switch(selected) {
+      case 1:   
+          this.props.toggleHawkerHidden();
+          break;
+      case 2:
+          this.props.toggleBusHidden();
+          break;
+      case 3:
+          this.props.toggleSchoolHidden();
+          break;
+      default: 
+          break;
+    }
   }
 
   render() {
     return (
-      <div>
-        <h1>Checkbox Buttons</h1>
-        <ButtonGroup vertical size="large">
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(0)} active={this.state.cSelected.includes(this.state.layers[0])}>One</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.cSelected.includes(this.state.layers[1])}>Two</Button>
-          <Button color="primary" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.cSelected.includes(this.state.layers[2])}>Three</Button>
+      <span className="checkboxes">
+        <ButtonGroup size="medium">
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.cSelected.includes(1)}>Hawker Centers</Button>
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.cSelected.includes(2)}>Bus Stops</Button>
+          <Button color="info" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.cSelected.includes(3)}>Schools</Button>
         </ButtonGroup>
-        <p>Filters On: {JSON.stringify(this.state.cSelected)}</p>
-      </div>
+      </span>
     );
   }
 }

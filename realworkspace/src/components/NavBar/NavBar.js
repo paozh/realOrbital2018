@@ -6,11 +6,10 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  Button
+ } from 'reactstrap';
+import CheckBoxes from '../NavCol/CheckBoxes/CheckBoxes';
+import ModalGraph from '../Modals/ModalGraph';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -18,45 +17,47 @@ export default class NavBar extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      isStart: true
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
+
   render() {
     return (
       <div id="Bar">
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">BTO Planner</NavbarBrand>
+          <NavbarBrand href="/">BTOViewer</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <CheckBoxes toggleBusHidden={this.props.toggleBusHidden}
+                            toggleSchoolHidden={this.props.toggleSchoolHidden}
+                            toggleHawkerHidden={this.props.toggleHawkerHidden}
+                  />
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+
+              <NavItem> 
+                <ModalGraph buttonLabel="Graphs"/>
+                </NavItem>
+              <NavItem> 
+                <Button color="primary" onClick={this.props.moveToPunggol}> Punggol BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                <Button color="primary" onClick={this.props.moveToYishunWest}> Yishun West BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                  <Button color="primary" onClick={this.props.moveToYishunEast}> Yishun East BTOs </Button>
+                </NavItem>
+              <NavItem> 
+                  <Button color="danger" onClick={this.props.onClick}> Reset </Button>
+                </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

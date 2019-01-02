@@ -1,0 +1,50 @@
+How to use CARTOJS with React:
+(Carto objects)
+- Client 
+- Dataviews
+> objects used to extract data from a CARTO account in predefined ways
+> Once created and added to a client, will fire events containing the requested data
+
+- Layers 
+> used to extract data from a CARTO account and represent them on a map
+
+- Display carto.Layers in a map
+> To display the created carto layers, they should be added to a client in order to be displayed in a map
+> getLeafletLayer(): returns a leaflet layer that groups all the layers that have been added to this client, any changes to the client layers will be immediately reflected in the map (hide map, change layer style)
+
+
+- CARTO components (custom) 
+> have been created such that the source, style, client , hidden & other props have been taken care of within the component.
+
+>according to React lifecycle must wait until the component has been mounted before trying to add a leafletLayer to the leaflet map.
+i.e. : 
+"this.context.map" refers to the native leaflet map
+componentDidMount() {
+	const {client} = this.props;
+	client.getLeafletLayer().addTo(this.context.map)
+}
+
+
+NOTE:
+normal cartojs leaflet implementation is just <script/> + html5 elements in the index.hmtml
+
+reactjs cartojs leaflet implementation: 
+no <script/> & html5 elements are rendered through reactjs. 
+> the cockpit is just the index.html file 
+> all the scripting in the background should be handled within individual components 
+
+cartojs lets you create custom location intelligence applications that leverage the power of the carto platform
+- allows for the use of css/datasets (that are stored within the account)
+
+
+
+
+
+
+
+1) Put map into current app 
+> tried but failed, need to retry using react
+2) Make the needed layers 
+3) Add interactivity to layers 
+4) Integrate the map with the map
+5) Fine tune & add data analysis

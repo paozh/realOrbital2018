@@ -1,0 +1,9 @@
+.alert {
+    z-index: 1005;
+    width: 19%;
+    position: absolute;
+    left: 2400px;
+    top: 450px;
+    text-align: left;
+    font-size: 125%;
+}
