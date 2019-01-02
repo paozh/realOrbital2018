@@ -45,9 +45,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Ling Zhi Yu** - *Initial work* - [lingzhiyu](https://github.com/lingzhiyu)
-* **Tan Zhe Hao** - *Initial work* - [zhtan](https://github.com/zh-tan)
-
+* **Ling Zhi Yu** - *NUS Year 1 (Computer Science)* - [lingzhiyu](https://github.com/lingzhiyu)
+* **Tan Zhe Hao** - *NUS Year 1 (Business Analytics)* - [zhtan](https://github.com/zh-tan)
 
 ## License
 
